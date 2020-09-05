@@ -2,6 +2,7 @@
 
 //load Sequelize
 const { sequelize } = require('./models');
+const cors = require('cors')
 
 // Get references to our models.
 const Courses = require('./models').Course;
@@ -20,6 +21,7 @@ const enableGlobalErrorLogging = process.env.ENABLE_GLOBAL_ERROR_LOGGING === 'tr
 
 // create the Express app
 const app = express();
+app.use(cors())
 app.use(express.json());
 
 // setup morgan which gives us http request logging
