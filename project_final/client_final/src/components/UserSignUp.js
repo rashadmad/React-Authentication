@@ -52,8 +52,8 @@ export default class UserSignUp extends Component {
                   onChange={this.change} 
                   placeholder="Last name" />
                 <input 
-                  id="email" 
-                  name="email" 
+                  id="emailAddress" 
+                  name="emailAddress" 
                   type="text"
                   value={emailAddress} 
                   onChange={this.change} 
@@ -90,14 +90,14 @@ export default class UserSignUp extends Component {
     const { context } = this.props;
     const {
       name,
-      username,
+      emailAddress,
       password,
     } = this.state;
 
     // Create user
     const user = {
       name,
-      username,
+      emailAddress,
       password,
     };
 
@@ -106,7 +106,7 @@ export default class UserSignUp extends Component {
         if (errors.length) {
           this.setState({ errors });
         } else {
-          context.actions.signIn(username, password)
+          context.actions.signIn(emailAddress, password)
             .then(() => {
               this.props.history.push('/authenticated');    
             });
