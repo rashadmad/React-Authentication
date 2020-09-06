@@ -98,8 +98,6 @@ export default class UserSignUp extends Component {
 
   isPasswordConfirmed = (pass, confPass) => {
     let passwordsMatch = false
-    console.log("your password is:" + pass)
-    console.log("your password to confirm:" + confPass)
     if (pass === confPass) {
       passwordsMatch = true
     } 
