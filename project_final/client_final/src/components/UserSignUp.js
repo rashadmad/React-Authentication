@@ -129,6 +129,8 @@ export default class UserSignUp extends Component {
       .then( errors => {
         if (errors.length) {
           this.setState({ errors });
+          console.log(errors);
+          debugger
         } else {
           context.actions.signIn(emailAddress, password)
             .then(() => {
@@ -137,8 +139,9 @@ export default class UserSignUp extends Component {
         }
       })
       .catch((err) => {
-        console.log(err);
         this.props.history.push('/error');
+        console.log(err);
+        debugger
       });
 
     } else {

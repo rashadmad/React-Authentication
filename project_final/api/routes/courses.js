@@ -25,10 +25,10 @@ router.post('/api/courses', [
         description
     */
     check('title')
-        .exists()
+        .exists({checkNull: true, checkFalsy: true})
         .withMessage('Please provide a value for "title"'),
     check('description')
-        .exists()
+        .exists({checkNull: true, checkFalsy: true})
         .withMessage('Please provide a value for "description"'),
     ], middleware.authenticateUser, middleware.asyncHandler(async(req, res) => {
     

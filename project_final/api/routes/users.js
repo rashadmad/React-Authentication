@@ -31,13 +31,13 @@ router.post('/api/users', [
         emailAddress
     */
     check('firstName')
-        .exists()
+        .exists({checkNull: true, checkFalsy: true})
         .withMessage('Please provide a value for "firstName"'),
     check('lastName')
-        .exists()
+        .exists({checkNull: true, checkFalsy: true})
         .withMessage('Please provide a value for "lastName"'),
     check('emailAddress')
-        .exists()
+        .exists({checkNull: true, checkFalsy: true})
         .withMessage('Please provide a value for "emailAddress"'),
 
     ], middleware.asyncHandler(async(req, res) => {
