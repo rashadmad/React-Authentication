@@ -9,11 +9,13 @@ import Form from './Form';
 */
 
 export default class UserSignUp extends Component {
+
   state = {
     firstName: '',
     lastName: '',
     emailAddress: '',
     password: '',
+    confirmPassword: '',
     errors: [],
   }
 
@@ -23,6 +25,7 @@ export default class UserSignUp extends Component {
       lastName,
       emailAddress,
       password,
+      confirmPassword,
       errors,
     } = this.state;
 
@@ -65,6 +68,13 @@ export default class UserSignUp extends Component {
                   value={password} 
                   onChange={this.change} 
                   placeholder="Password" />
+                <input 
+                  id="confirmPassword" 
+                  name="confirmPassword"
+                  type="confirmPassword"
+                  value={confirmPassword} 
+                  onChange={this.change} 
+                  placeholder="Confirm Password" />
               </React.Fragment>
             )} />
           <p>
@@ -86,22 +96,38 @@ export default class UserSignUp extends Component {
     });
   }
 
+  isPasswordConfirmed = (pass, confPass) => {
+    let passwordsMatch = false
+    console.log("your password is:" + pass)
+    console.log("your password to confirm:" + confPass)
+    if (pass === confPass) {
+      passwordsMatch = true
+    } 
+    return passwordsMatch
+  }
+
   submit = () => {
+
     const { context } = this.props;
     const {
-      name,
+      firstName,
+      lastName,
       emailAddress,
+      confirmPassword,
       password,
     } = this.state;
 
-    // Create user
-    const user = {
-      name,
-      emailAddress,
-      password,
-    };
+    //need a gate to check if the confirm password and password fields match 
+    if(this.isPasswordConfirmed(password,confirmPassword)){
+      //if they do then create a user
+      const user = {
+        firstName,
+        lastName,
+        emailAddress,
+        password,
+      };
 
-    context.data.createUser(user)
+      context.data.createUser(user)
       .then( errors => {
         if (errors.length) {
           this.setState({ errors });
@@ -116,7 +142,11 @@ export default class UserSignUp extends Component {
         console.log(err);
         this.props.history.push('/error');
       });
-  
+
+    } else {
+      //if they don't then send an error that states 
+      console.log("your passwords do not match.")
+    }
   }
 
   cancel = () => {
