@@ -71,7 +71,7 @@ export default class UserSignUp extends Component {
                 <input 
                   id="confirmPassword" 
                   name="confirmPassword"
-                  type="confirmPassword"
+                  type="password"
                   value={confirmPassword} 
                   onChange={this.change} 
                   placeholder="Confirm Password" />
@@ -145,7 +145,7 @@ export default class UserSignUp extends Component {
 
     } else {
       //if they don't then send an error that states 
-      console.log("your passwords do not match.")
+      alert("your passwords do not match.");
     }
   }
 
