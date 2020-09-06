@@ -39,7 +39,9 @@ router.post('/api/users', [
     check('emailAddress')
         .exists({checkNull: true, checkFalsy: true})
         .withMessage('Please provide a value for "emailAddress"'),
-
+    check('password')
+        .exists({checkNull: true, checkFalsy: true})
+        .withMessage('Please provide a value for "password"')
     ], middleware.asyncHandler(async(req, res) => {
 
     const newUser = req.body;
