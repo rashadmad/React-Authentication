@@ -13,36 +13,37 @@ import NotFound from './components/NotFound';
 import UserSignUp from './components/UserSignUp';
 import UserSignIn from './components/UserSignIn';
 import UserSignOut from './components/UserSignOut';
-import Authenticated from './components/Authenticated';
+//import Authenticated from './components/Authenticated';
 import CreateCourse from './components/CreateCourse';
+import CourseDetail from './components/CourseDetail'
 
 import withContext from './Context';
-import PrivateRoute from './PrivateRoute';
+//import PrivateRoute from './PrivateRoute';
 
 const HeaderWithContext = withContext(Header);
-const AuthWithContext = withContext(Authenticated);
+//const AuthWithContext = withContext(Authenticated);
 const UserSignUpWithContext = withContext(UserSignUp);
 const UserSignInWithContext = withContext(UserSignIn);
 const UserSignOutWithContext = withContext(UserSignOut);
 
 export default () => (
-  <Router>
-    <div>
-      <HeaderWithContext />
-      <Switch>
-        <Route exact path="/" component={Courses} />
-        <PrivateRoute path="/authenticated" component={AuthWithContext} />
-        <Route path="/signin" component={UserSignInWithContext} />
-        <Route path="/signup" component={UserSignUpWithContext} />
-        <Route path="/signout" component={UserSignOutWithContext} />
-        <Route path="/courses" component={Courses} />
-        <Route path="/courses/create" component={CreateCourse} />
-        <Route path="/courses/signout" component={UserSignOut} />
-        {/* <Route path="/courses/:id/update" component={UpdateCourse} /> */}
-        <Route path="/courses/:id" component={CourseDetail} />
-        <Route component={NotFound} />
-        <Route component={Forbidden} />
-      </Switch>
-    </div>
-  </Router>
+    <Router>
+      <div>
+        <HeaderWithContext />
+        <Switch>
+          <Route exact path="/" component={Courses} />
+          {/* <PrivateRoute path="/authenticated" component={AuthWithContext} /> */}
+          <Route path="/courses/create" component={CreateCourse} />
+          <Route path="/courses" component={Courses} />
+          <Route path="/signin" component={UserSignInWithContext} />
+          <Route path="/signup" component={UserSignUpWithContext} />
+          <Route path="/signout" component={UserSignOutWithContext} />
+          <Route path="/courses/signout" component={UserSignOut} />
+          {/* <Route path="/courses/:id/update" component={UpdateCourse} /> */}
+          <Route path="/courses/:id" component={CourseDetail} />
+          <Route component={NotFound} />
+          <Route component={Forbidden} />
+        </Switch>
+      </div>
+    </Router>
 );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 /*
     This component provides the "Create Course" screen by rendering a form that allows a user to create a new course. 
@@ -7,6 +7,12 @@ import React from 'react';
 */
 
 const CreateCourse = () => {
+
+  const [id, setId] = useState();
+  const [title, setTitle] = useState();
+  const [description, setDesc] = useState();
+  const [estimatedTime, setTime] = useState();
+  const [materialsNeeded, setMat] = useState();
 
     return (
      <div className="bounds course--detail">
