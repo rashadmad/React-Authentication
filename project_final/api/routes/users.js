@@ -54,11 +54,20 @@ router.post('/api/users', [
         const errorMessages = errors.array().map(error => error.msg);
         res.status(400).json({ errors: errorMessages });
     } else {
-        // Get the user from the request body.
-        newUser.password = bcryptjs.hashSync(newUser.password);
-        const hashedUser = await Users.create(newUser);
-        res.location('/')
-        res.status(201).end(); 
+        try {
+            // Get the user from the request body.
+            newUser.password = bcryptjs.hashSync(newUser.password);
+            const hashedUser = await Users.create(newUser);
+            res.location('/')
+            res.status(201).end(); 
+        }
+        catch (error) {
+            if(error.name === "SequelizeUniqueConstraintError"){
+              let err = ["Email address already in use"];
+              return res.status(400).json({errors: err});
+            }
+            throw error;
+          }
     }
 }));
 
