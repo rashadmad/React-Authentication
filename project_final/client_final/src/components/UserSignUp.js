@@ -130,7 +130,6 @@ export default class UserSignUp extends Component {
         if (errors.length) {
           this.setState({ errors });
           console.log(errors);
-          debugger
         } else {
           context.actions.signIn(emailAddress, password)
             .then(() => {
@@ -141,12 +140,14 @@ export default class UserSignUp extends Component {
       .catch((err) => {
         this.props.history.push('/error');
         console.log(err);
-        debugger
       });
 
     } else {
       //if they don't then send an error that states 
-      alert("your passwords do not match.");
+      this.setState( prevState => {
+        prevState.errors.push("Your passwords do not match.");
+        return prevState;
+      })
     }
   }
 
