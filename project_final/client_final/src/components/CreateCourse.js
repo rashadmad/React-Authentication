@@ -38,6 +38,7 @@ const CreateCourse = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log("submit button pressed")
   }
 
   // const populateCourses = () => {
