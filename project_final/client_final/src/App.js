@@ -28,7 +28,6 @@ export default () => (
   <Router>
     <div>
       <HeaderWithContext />
-
       <Switch>
         <Route exact path="/" component={Courses} />
         <PrivateRoute path="/authenticated" component={AuthWithContext} />

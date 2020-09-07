@@ -1,5 +1,7 @@
 import React, { useEffect,useState } from 'react';
 
+import NewCourseButton from './NewCourseButton';
+
 /*
     This component provides the "Courses" screen by retrieving the list of courses from the REST API's /api/courses route and rendering a list of courses. 
     Each course needs to link to its respective "Course Detail" screen. 
@@ -41,6 +43,7 @@ const Courses = () => {
                   </a>
                 </div>
               ))}
+              <NewCourseButton />
             </div>
         </div>
     );
