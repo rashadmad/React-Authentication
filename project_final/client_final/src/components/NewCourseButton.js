@@ -1,10 +1,13 @@
 import React from 'react';
+import {
+  NavLink
+} from 'react-router-dom';
 
 export default class Head extends React.PureComponent {
     render() {
       return (
         <div className="grid-33">
-          <a className="course--module course--add--module" href="/courses/create">
+          <NavLink className="course--module course--add--module" to="/courses/create">
             <h3 className="course--add--title">
               <svg
                 version="1.1"
@@ -18,7 +21,7 @@ export default class Head extends React.PureComponent {
               </svg>
               New Course
             </h3>
-          </a>
+          </NavLink>
         </div>
       );
     }

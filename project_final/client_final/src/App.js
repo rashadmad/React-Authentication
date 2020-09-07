@@ -14,6 +14,7 @@ import UserSignUp from './components/UserSignUp';
 import UserSignIn from './components/UserSignIn';
 import UserSignOut from './components/UserSignOut';
 import Authenticated from './components/Authenticated';
+import CreateCourse from './components/CreateCourse';
 
 import withContext from './Context';
 import PrivateRoute from './PrivateRoute';
@@ -35,6 +36,10 @@ export default () => (
         <Route path="/signup" component={UserSignUpWithContext} />
         <Route path="/signout" component={UserSignOutWithContext} />
         <Route path="/courses" component={Courses} />
+        <Route path="/courses/create" component={CreateCourse} />
+        <Route path="/courses/signout" component={UserSignOut} />
+        {/* <Route path="/courses/:id/update" component={UpdateCourse} /> */}
+        <Route path="/courses/:id" component={CourseDetail} />
         <Route component={NotFound} />
         <Route component={Forbidden} />
       </Switch>

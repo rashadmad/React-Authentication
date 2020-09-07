@@ -1,4 +1,7 @@
 import React, { useEffect,useState } from 'react';
+import {
+  NavLink
+} from 'react-router-dom';
 
 import NewCourseButton from './NewCourseButton';
 
@@ -34,13 +37,13 @@ const Courses = () => {
             <div className="bounds">
               {coursesData.map((course) => (
                 <div className="grid-33" key={course.id}>
-                    <a
-                      href={"/courses/" + course.id}
+                    <NavLink
+                      to={"/courses/" + course.id}
                       className="course--module course--link"
                     >
                     <h4 className="course--label">Courses</h4>
                     <h3 className="course--title">{course.title}</h3>
-                  </a>
+                  </NavLink>
                 </div>
               ))}
               <NewCourseButton />
