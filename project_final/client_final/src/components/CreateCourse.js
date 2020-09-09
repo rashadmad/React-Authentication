@@ -56,7 +56,6 @@ const CreateCourse = (props) => {
   });
 
     return (
-      console.log(authUser),
      <div className="bounds course--detail">
         <h1>Create Course</h1>
         <div>
