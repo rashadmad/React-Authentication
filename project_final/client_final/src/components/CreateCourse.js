@@ -1,4 +1,4 @@
-import React, {Fragment, useState, useEffect} from 'react';
+import React, {Fragment, useState} from 'react';
 import Form from './Form';
 //import { authenticatedUser } from '../Context';
 
@@ -41,9 +41,30 @@ const CreateCourse = (props) => {
     }
   }
 
+  const createCourses = () => {
+    console.log(title + ' ' + authUser.id + ' ' + description + ' ' + estimatedTime + ' ' + materialsNeeded)
+    fetch('http://localhost:5000/api/courses', {
+      method: 'POST',
+      id: authUser.id,
+      title: title,
+      description: description,
+      estimatedTime: estimatedTime,
+      materialsNeeded: materialsNeeded,
+      credentials: 'same-origin',
+      redirect: 'follow',
+      agent: null,
+      headers: {
+          "Content-Type": "text/plain",
+          'Authorization': 'Basic ' + btoa('gino@coolcats.com:password'),
+      },
+      timeout: 5000 
+      })
+      .then(res => res.json())
+      .catch(error => console.log('Error Creating a course', error))
+  }
+
   const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log("submit button pressed")
+    createCourses()
   }
 
   //Handle course submit cancellation
@@ -51,24 +72,12 @@ const CreateCourse = (props) => {
       this.props.history.push('/') //push root to history stack
   }
 
-  useEffect(() => {
-    console.log("use effect activated");
-  });
 
     return (
      <div className="bounds course--detail">
         <h1>Create Course</h1>
         <div>
           <div>
-            <div>
-              <h2 className="validation--errors--label">Validation errors</h2>
-              <div className="validation-errors">
-                <ul>
-                  <li>Please provide a value for "Title"</li>
-                  <li>Please provide a value for "Description"</li>
-                </ul>
-              </div>
-            </div>
           <Form
           cancel={cancel}
           errors={errors}
