@@ -11,11 +11,11 @@ import Form from './Form';
 const CreateCourse = (props) => {
 
   //state
-  const [id, setId] = useState();
-  const [title, setTitle] = useState();
-  const [description, setDescription] = useState();
-  const [estimatedTime, setEstimatedTime] = useState();
-  const [materialsNeeded, setMaterialsNeeded] = useState();
+  const [id, setId] = useState("");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [estimatedTime, setEstimatedTime] = useState("");
+  const [materialsNeeded, setMaterialsNeeded] = useState("");
   const [errors, setError] = useState([]);
   const authUser = props.context.authenticatedUser;
 
@@ -42,14 +42,8 @@ const CreateCourse = (props) => {
   }
 
   const createCourses = () => {
-    console.log(title + ' ' + authUser.id + ' ' + description + ' ' + estimatedTime + ' ' + materialsNeeded)
     fetch('http://localhost:5000/api/courses', {
       method: 'POST',
-      id: authUser.id,
-      title: title,
-      description: description,
-      estimatedTime: estimatedTime,
-      materialsNeeded: materialsNeeded,
       credentials: 'same-origin',
       redirect: 'follow',
       agent: null,
@@ -57,6 +51,13 @@ const CreateCourse = (props) => {
           "Content-Type": "text/plain",
           'Authorization': 'Basic ' + btoa('gino@coolcats.com:password'),
       },
+      body: JSON.stringify({ 
+        id: authUser.id,
+        title: title,
+        description: description,
+        estimatedTime: estimatedTime,
+        materialsNeeded: materialsNeeded
+      }),
       timeout: 5000 
       })
       .then(res => res.json())
