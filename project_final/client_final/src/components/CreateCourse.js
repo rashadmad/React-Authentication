@@ -17,7 +17,7 @@ const CreateCourse = (props) => {
   const [estimatedTime, setEstimatedTime] = useState();
   const [materialsNeeded, setMaterialsNeeded] = useState();
   const [errors, setError] = useState([]);
-  const [authUser, setAuthenticatedUser] = useState();
+  const authUser = props.context.authenticatedUser;
 
   const handleChange = (event) => {
     switch(event.target.name) {
@@ -56,6 +56,7 @@ const CreateCourse = (props) => {
   });
 
     return (
+      console.log(authUser),
      <div className="bounds course--detail">
         <h1>Create Course</h1>
         <div>
