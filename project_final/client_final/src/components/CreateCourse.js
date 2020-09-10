@@ -52,7 +52,7 @@ const CreateCourse = (props) => {
       materialsNeeded: materialsNeeded
     } 
 
-    context.data.createCourse(course, authUser.email, authUser.password)
+    context.data.createCourse(course, authUser.emailAddress, authUser.password)
     .then( errors => {
       if (errors.length) {
         setError({ errors })
@@ -73,6 +73,8 @@ const CreateCourse = (props) => {
   }
 
     return (
+
+    console.log(authUser),
      <div className="bounds course--detail">
         <h1>Create Course</h1>
         <div>
