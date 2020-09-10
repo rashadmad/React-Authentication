@@ -70,9 +70,8 @@ const CreateCourse = (props) => {
 
   //Handle course submit cancellation
   const cancel = () => {
-      this.props.history.push('/') //push root to history stack
+      props.history.push('/') //push root to history stack
   }
-
 
     return (
      <div className="bounds course--detail">
