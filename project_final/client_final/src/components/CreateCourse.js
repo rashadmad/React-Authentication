@@ -41,31 +41,30 @@ const CreateCourse = (props) => {
     }
   }
 
-  const createCourses = () => {
-    fetch('http://localhost:5000/api/courses', {
-      method: 'POST',
-      credentials: 'same-origin',
-      redirect: 'follow',
-      agent: null,
-      headers: {
-          "Content-Type": "application/json",
-          'Authorization': 'Basic ' + btoa('gino@coolcats.com:password'),
-      },
-      body: JSON.stringify({ 
-        userId: authUser.id,
-        title: title,
-        description: description,
-        estimatedTime: estimatedTime,
-        materialsNeeded: materialsNeeded
-      }),
-      timeout: 5000 
-      })
-      .then(res => res.json())
-      .catch(error => console.log('Error Creating a course', error))
-  }
+  const handleSubmit = () => {
+    const { context } = props;
 
-  const handleSubmit = (event) => {
-    createCourses()
+    const course = {
+      id,
+      title,
+      description,
+      estimatedTime,
+      materialsNeeded,
+    } 
+
+    context.data.createCourses(course)
+    .then( errors => {
+      if (errors.length) {
+        setError({ errors })
+        console.log(errors);
+      } else {
+        props.history.push('/');    
+      }
+    })
+    .catch((err) => {
+      props.history.push('/error');
+      console.log(err);
+    });
   }
 
   //Handle course submit cancellation
