@@ -48,11 +48,11 @@ const CreateCourse = (props) => {
       redirect: 'follow',
       agent: null,
       headers: {
-          "Content-Type": "text/plain",
+          "Content-Type": "application/json",
           'Authorization': 'Basic ' + btoa('gino@coolcats.com:password'),
       },
       body: JSON.stringify({ 
-        id: authUser.id,
+        userId: authUser.id,
         title: title,
         description: description,
         estimatedTime: estimatedTime,
