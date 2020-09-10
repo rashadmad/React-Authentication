@@ -1,4 +1,4 @@
-import config from './config';
+import config from './config'; 
 
 export default class Data {
   api(path, method = 'GET', body = null, requiresAuth = false, credentials = null) {
@@ -40,7 +40,7 @@ export default class Data {
     if (response.status === 201) {
       return [];
     }
-    else if (response.status === 400) {
+    else if (response.status >= 400 || response.status >= 499) {
       return response.json().then(data => {
         return data.errors;
       });
@@ -50,17 +50,17 @@ export default class Data {
     }
   }
 
-  async createCourses(course){
-    const response = await this.api('/courses/create','POST', course);
+  async createCourse(course, emailAddress, password){
+    const response = await this.api('/courses','POST', course, {emailAddress, password});
     if (response.status === 201) {
       return [];
     }
-    else if (response.status === 400) {
+    else if (response.status >= 401 || response.status >= 499) {
       return response.json().then(data => {
+        console.log(data.errors)
         console.log(data.errors)
         return data.errors;
       });
-      console.log(response)
     }
     else {
       throw new Error();

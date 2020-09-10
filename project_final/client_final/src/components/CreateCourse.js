@@ -45,14 +45,14 @@ const CreateCourse = (props) => {
     const { context } = props;
 
     const course = {
-      id,
-      title,
-      description,
-      estimatedTime,
-      materialsNeeded,
+      id: id,
+      title: title,
+      description: description,
+      estimatedTime: estimatedTime,
+      materialsNeeded: materialsNeeded
     } 
 
-    context.data.createCourses(course)
+    context.data.createCourse(course, authUser.email, authUser.password)
     .then( errors => {
       if (errors.length) {
         setError({ errors })
