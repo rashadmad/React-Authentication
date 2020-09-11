@@ -50,10 +50,10 @@ const CreateCourse = (props) => {
 
     context.data.createCourse(course, props.context.authenticatedUser.emailAddress, props.context.authenticatedUser.password) 
     .then( errors => {
-      debugger
       if (errors.length) {
-        setError({ errors })
+        setError( errors )
         console.log(errors);
+        debugger
       } else {
         props.history.push('/');    
       }

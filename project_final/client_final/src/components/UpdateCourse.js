@@ -51,6 +51,7 @@ const UpdateCourses = (props) => {
       context.data.createCourse(course, props.context.authenticatedUser.emailAddress, props.context.authenticatedUser.password) 
       .then( errors => {
         if (errors.length) {
+          debugger
           setError({ errors })
           console.log(errors);
         } else {
@@ -70,7 +71,7 @@ const UpdateCourses = (props) => {
   
       return (
        <div className="bounds course--detail">
-          <h1>Create Course</h1>
+          <h1>Update Course</h1>
           <div>
             <div>
             <Form
@@ -79,7 +80,7 @@ const UpdateCourses = (props) => {
             submit={handleSubmit}
             submitButtonText="Create Course"
             elements={() => (
-              <Fragment>
+              <React.Fragment>
                 <div className="grid-66">
                   <div className="course--header">
                     <h4 className="course--label">Course</h4>
@@ -138,7 +139,7 @@ const UpdateCourses = (props) => {
                     </ul>
                   </div>
                 </div>
-              </Fragment>
+              </React.Fragment>
             )} />
               </div>
           </div>

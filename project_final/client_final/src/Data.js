@@ -56,7 +56,6 @@ export default class Data {
       return [];
     }
     else if (response.status >= 400 || response.status >= 499) {
-      debugger
       return response.json().then(data => {
         console.log(data.errors)
         return data.errors;

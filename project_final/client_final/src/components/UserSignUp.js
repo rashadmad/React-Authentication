@@ -105,7 +105,7 @@ export default class UserSignUp extends Component {
   }
 
   submit = () => {
-
+    debugger
     const { context } = this.props;
     const {
       firstName,
@@ -127,7 +127,6 @@ export default class UserSignUp extends Component {
 
       context.data.createUser(user)
       .then( errors => {
-        debugger
         if (errors.length) {
           this.setState({ errors });
           console.log(errors);
