@@ -3,7 +3,7 @@ import config from './config';
 export default class Data {
   api(path, method = 'GET', body = null, requiresAuth = false, credentials = null) {
     const url = config.apiBaseUrl + path;
-  
+    
     const options = {
       method,
       headers: {
@@ -50,8 +50,8 @@ export default class Data {
     }
   }
 
-  async createCourse(course, emailAddress, password){
-    const response = await this.api('/courses','POST', course, true, {emailAddress, password});
+  async createCourse(courseBody, emailAddress, password){
+    const response = await this.api('/courses','POST', courseBody, true, {emailAddress, password});
     if (response.status === 201) {
       return [];
     }

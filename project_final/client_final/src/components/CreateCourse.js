@@ -11,7 +11,6 @@ import Form from './Form';
 const CreateCourse = (props) => {
 
   //state
-  const [id, setId] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [estimatedTime, setEstimatedTime] = useState("");
@@ -21,9 +20,6 @@ const CreateCourse = (props) => {
 
   const handleChange = (event) => {
     switch(event.target.name) {
-      case id:
-        setId(event.target.value);
-        break;
       case 'title':
         setTitle(event.target.value);
         break;
@@ -45,14 +41,14 @@ const CreateCourse = (props) => {
     const { context } = props;
 
     const course = {
-      id: id,
-      title: title,
-      description: description,
-      estimatedTime: estimatedTime,
-      materialsNeeded: materialsNeeded
+      userId: authUser.id,
+      title,
+      description,
+      estimatedTime,
+      materialsNeeded
     } 
 
-    context.data.createCourse(course, authUser.emailAddress, authUser.password)
+    context.data.createCourse(course, props.context.authenticatedUser.emailAddress, props.context.authenticatedUser.password) 
     .then( errors => {
       if (errors.length) {
         setError({ errors })
@@ -73,8 +69,6 @@ const CreateCourse = (props) => {
   }
 
     return (
-
-    console.log(authUser),
      <div className="bounds course--detail">
         <h1>Create Course</h1>
         <div>
