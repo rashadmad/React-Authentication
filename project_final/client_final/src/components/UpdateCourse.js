@@ -92,7 +92,7 @@ const UpdateCourses = (props) => {
                         value={title}
                         onChange={handleChange} 
                         className="input-title course--title--input" 
-                        placeholder="Course title..." />
+                        placeholder={} />
                     </div>
                     <p>By {authUser.firstName} {authUser.lastName}</p>
                   </div>
