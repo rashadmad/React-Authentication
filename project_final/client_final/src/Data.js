@@ -55,9 +55,9 @@ export default class Data {
     if (response.status === 201) {
       return [];
     }
-    else if (response.status >= 401 || response.status >= 499) {
+    else if (response.status >= 400 || response.status >= 499) {
+      debugger
       return response.json().then(data => {
-        console.log(data.errors)
         console.log(data.errors)
         return data.errors;
       });

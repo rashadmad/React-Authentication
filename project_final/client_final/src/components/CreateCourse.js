@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from 'react';
+import React, {useState} from 'react';
 import Form from './Form';
 //import { authenticatedUser } from '../Context';
 
@@ -50,6 +50,7 @@ const CreateCourse = (props) => {
 
     context.data.createCourse(course, props.context.authenticatedUser.emailAddress, props.context.authenticatedUser.password) 
     .then( errors => {
+      debugger
       if (errors.length) {
         setError({ errors })
         console.log(errors);
@@ -79,7 +80,7 @@ const CreateCourse = (props) => {
           submit={handleSubmit}
           submitButtonText="Create Course"
           elements={() => (
-            <Fragment>
+            <React.Fragment>
               <div className="grid-66">
                 <div className="course--header">
                   <h4 className="course--label">Course</h4>
@@ -138,7 +139,7 @@ const CreateCourse = (props) => {
                   </ul>
                 </div>
               </div>
-            </Fragment>
+            </React.Fragment>
           )} />
             </div>
         </div>
