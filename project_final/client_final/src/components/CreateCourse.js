@@ -47,7 +47,7 @@ const CreateCourse = (props) => {
       estimatedTime,
       materialsNeeded
     } 
-
+    
     context.data.createCourse(course, props.context.authenticatedUser.emailAddress, props.context.authenticatedUser.password) 
     .then( errors => {
       if (errors.length) {

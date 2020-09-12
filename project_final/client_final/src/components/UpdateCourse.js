@@ -1,5 +1,6 @@
-import React, {Fragment, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Form from './Form';
+const { context } = props;
 //import { authenticatedUser } from '../Context';
 
 /*
@@ -17,6 +18,17 @@ const UpdateCourses = (props) => {
     const [materialsNeeded, setMaterialsNeeded] = useState("");
     const [errors, setError] = useState([]);
     const authUser = props.context.authenticatedUser;
+
+    //add the currently selected courses to state
+    useEffect(() => {
+      context.data.getCourse(props.match.params.id)
+      .then(courseToUpdateData => {
+        setTitle(courseToUpdateData.title)
+        setDescription(courseToUpdateData.description)
+        setEstimatedTime(courseToUpdateData.estimatedTime)
+        setMaterialsNeeded(courseToUpdateData.materialsNeeded)
+      })
+    })
   
     const handleChange = (event) => {
       switch(event.target.name) {
@@ -48,7 +60,7 @@ const UpdateCourses = (props) => {
         materialsNeeded
       } 
   
-      context.data.createCourse(course, props.context.authenticatedUser.emailAddress, props.context.authenticatedUser.password) 
+      context.data.updateCourses(id) 
       .then( errors => {
         if (errors.length) {
           debugger
