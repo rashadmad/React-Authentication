@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import Form from './Form';
-const { context } = props;
 //import { authenticatedUser } from '../Context';
 
 /*
@@ -21,6 +20,7 @@ const UpdateCourses = (props) => {
 
     //add the currently selected courses to state
     useEffect(() => {
+      const { context } = props;
       context.data.getCourse(props.match.params.id)
       .then(courseToUpdateData => {
         setTitle(courseToUpdateData.title)
@@ -50,6 +50,7 @@ const UpdateCourses = (props) => {
     }
   
     const handleSubmit = () => {
+      debugger
       const { context } = props;
   
       const course = {
@@ -60,7 +61,7 @@ const UpdateCourses = (props) => {
         materialsNeeded
       } 
   
-      context.data.updateCourses(id) 
+      context.data.updateCourses(course, props.match.params.id) 
       .then( errors => {
         if (errors.length) {
           debugger
@@ -90,7 +91,7 @@ const UpdateCourses = (props) => {
             cancel={cancel}
             errors={errors}
             submit={handleSubmit}
-            submitButtonText="Create Course"
+            submitButtonText="Update Course"
             elements={() => (
               <React.Fragment>
                 <div className="grid-66">
@@ -101,10 +102,9 @@ const UpdateCourses = (props) => {
                         id="title" 
                         name="title" 
                         type="text" 
-                        value={title}
                         onChange={handleChange} 
                         className="input-title course--title--input" 
-                        placeholder={} />
+                        placeholder={title} />
                     </div>
                     <p>By {authUser.firstName} {authUser.lastName}</p>
                   </div>
@@ -113,9 +113,8 @@ const UpdateCourses = (props) => {
                       <textarea 
                         id="description" 
                         name="description" 
-                        value={description}
                         onChange={handleChange} 
-                        placeholder="Course description..."
+                        placeholder={description}
                         className="course--description" />
                     </div> 
                   </div>
@@ -130,10 +129,9 @@ const UpdateCourses = (props) => {
                             id="estimatedTime" 
                             name="estimatedTime" 
                             type="text"
-                            value={estimatedTime} 
                             onChange={handleChange} 
                             className="course--time--input"                              
-                            placeholder="Hours" />
+                            placeholder={estimatedTime} />
                         </div>
                       </li>
                       <li className="course--stats--list--item">
@@ -142,9 +140,8 @@ const UpdateCourses = (props) => {
                           <textarea
                             id="materialsNeeded" 
                             name="materialsNeeded"
-                            value={materialsNeeded}
                             onChange={handleChange} 
-                            placeholder="List materials..." 
+                            placeholder={materialsNeeded}
                           ></textarea>
                         </div>
                       </li>
