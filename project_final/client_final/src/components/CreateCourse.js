@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import Form from './Form';
-//import { authenticatedUser } from '../Context';
 
 /*
     This component provides the "Create Course" screen by rendering a form that allows a user to create a new course. 
@@ -50,10 +49,11 @@ const CreateCourse = (props) => {
     
     context.data.createCourse(course, props.context.authenticatedUser.emailAddress, props.context.authenticatedUser.password) 
     .then( errors => {
+      
       if (errors.length) {
         setError( errors )
         console.log(errors);
-        debugger
+        
       } else {
         props.history.push('/');    
       }

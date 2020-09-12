@@ -65,6 +65,7 @@ export default class Data {
 
   async createCourse(courseBody, emailAddress, password){
     const response = await this.api('/courses','POST', courseBody, true, {emailAddress, password});
+    debugger
     if (response.status === 201) {
       return [];
     }
@@ -80,8 +81,8 @@ export default class Data {
   }
 
   async updateCourses(courseBody, id, emailAddress, password){
+    const response = await this.api(`/courses/${id}`,`PUT`, courseBody, true, {emailAddress, password});
     debugger
-    const response = await this.api(`/courses/${id}UPDATE`, courseBody, true, {emailAddress, password});
     if (response.status === 201) {
       return [];
     }

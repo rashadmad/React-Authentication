@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import Form from './Form';
-//import { authenticatedUser } from '../Context';
 
 /*
    This component provides the "Update Course" screen by rendering a form that allows a user to update one of their existing courses. 
@@ -11,6 +10,7 @@ import Form from './Form';
 const UpdateCourses = (props) => {
 
     //state
+    
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [estimatedTime, setEstimatedTime] = useState("");
@@ -50,7 +50,7 @@ const UpdateCourses = (props) => {
     }
   
     const handleSubmit = () => {
-      debugger
+      
       const { context } = props;
   
       const course = {
@@ -61,13 +61,14 @@ const UpdateCourses = (props) => {
         materialsNeeded
       } 
   
-      context.data.updateCourses(course, props.match.params.id) 
+      context.data.updateCourses(course, props.match.params.id, props.context.authenticatedUser.emailAddress, props.context.authenticatedUser.password) 
       .then( errors => {
+        
         if (errors.length) {
-          debugger
-          setError({ errors })
+          setError( errors )
           console.log(errors);
         } else {
+          debugger
           props.history.push('/');    
         }
       })

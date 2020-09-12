@@ -11,6 +11,7 @@ export default (props) => {
   } = props;
 
   function handleSubmit(event) {
+    debugger
     event.preventDefault();
     submit();
   }
