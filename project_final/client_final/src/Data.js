@@ -112,10 +112,10 @@ export default class Data {
   async updateCourses(courseBody, id, emailAddress, password){
     const response = await this.api(`/courses/${id}`,`PUT`, courseBody, true, {emailAddress, password});
     debugger
-    if (response.status === 200 || response.status === 201) {
+    if (response.status === 204 || response.status === 201) {
       return [];
     }
-    else if (response.status >= 400 || response.status >= 499) {
+    else if (response.status === 400) {
       return response.json().then(data => {
         console.log(data.errors)
         return data.errors;

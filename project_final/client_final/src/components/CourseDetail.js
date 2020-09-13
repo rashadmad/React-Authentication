@@ -65,7 +65,7 @@ const CourseDetail = (props) => {
                   ? title
                   : "loading"}
               </h3>
-                <p>{`by ${authUser.firstName} ${authUser.firstName}`}</p>
+                <p>{`by ${authUser.firstName} ${authUser.lastName}`}</p>
             </div>
             <div className="course--description">
               {description
