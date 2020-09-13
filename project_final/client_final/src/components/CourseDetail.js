@@ -1,4 +1,7 @@
-import React, {useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
+import {
+  NavLink
+} from 'react-router-dom';
 
 /*
   This component provides the "Course Detail" screen by retrieving the detail for a course from the REST API's /api/courses/:id route and rendering the course. 
@@ -6,40 +9,43 @@ import React, {useEffect} from 'react';
   This component also renders an "Update Course" button for navigating to the "Update Course" screen.
 */
 
-export default class CourseDetail extends React.PureComponent {
-  constructor() { 
-    super();
-    this.deleteThisCourse = this.deleteThisCourse.bind(this);
-    this.state = {
-      selectedCourse: [],
-    };
-    this.courseId = null;
-  }
+const CourseDetail = (props) => {
 
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [estimatedTime, setEstimatedTime] = useState("");
+  const [materialsNeeded, setMaterialsNeeded] = useState("");
 
-  componentDidMount() {
-    this.courseId = this.props.match.params.id;
-    this.populateThisCourse()
-  }
+  const { context } = props;
+  const idFromUrl = props.match.params.id
 
-  render() {
-    const materialsList = this.state.selectedCourse.materialsNeeded;
+  //add the currently selected courses to state
+  useEffect(() => {
+    context.data.getCourse(idFromUrl).then((selectedCourse) => {
+      setTitle(selectedCourse.title);
+      setDescription(selectedCourse.description);
+      setEstimatedTime(selectedCourse.estimatedTime);
+      setMaterialsNeeded(selectedCourse.materialsNeeded);
+    });
+  }, [idFromUrl,context]);
+
+    //const materialsList = this.state.selectedCourse.materialsNeeded;
     return (
       <div>
         <div className="actions--bar">
           <div className="bounds">
             <div className="grid-100">
               <span>
-                <a className="button" href={`/courses/${this.courseId}/update`}>
+                <NavLink className="button" to={`/courses/${idFromUrl}/update`}>
                   Update Course
-                </a>
-                <a className="button" href="/" onClick={this.deleteThisCourse}>
+                </NavLink>
+                <NavLink className="button" to="/" onClick={context.data.deleteCourse}>
                   Delete Course
-                </a>
+                </NavLink>
               </span>
-              <a className="button button-secondary" href="/">
+              <NavLink className="button button-secondary" to="/">
                 Return to List
-              </a>
+              </NavLink>
             </div>
           </div>
         </div>
@@ -48,15 +54,15 @@ export default class CourseDetail extends React.PureComponent {
             <div className="course--header">
               <h4 className="course--label">Course</h4>
               <h3 className="course--title">
-                {this.state.selectedCourse
-                  ? this.state.selectedCourse.title
+                {title
+                  ? title
                   : "loading"}
               </h3>
               <p>By Joe Smith</p>
             </div>
             <div className="course--description">
-              {this.state.selectedCourse
-                ? this.state.selectedCourse.description
+              {description
+                ? description
                 : "loading"}
             </div>
           </div>
@@ -65,12 +71,12 @@ export default class CourseDetail extends React.PureComponent {
               <ul className="course--stats--list">
                 <li className="course--stats--list--item">
                   <h4>Estimated Time</h4>
-                  <h3>{this.state.selectedCourse.estimatedTime}</h3>
+                  <h3>{estimatedTime}</h3>
                 </li>
                 <li className="course--stats--list--item">
                   <h4>Materials Needed</h4>
                   <ul>
-                    <li>Material</li>
+                      <li>{materialsNeeded}</li>
                   </ul>
                 </li>
               </ul>
@@ -80,4 +86,5 @@ export default class CourseDetail extends React.PureComponent {
       </div>
     );
   }
-}
+
+export default CourseDetail;
