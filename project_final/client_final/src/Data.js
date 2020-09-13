@@ -24,7 +24,7 @@ export default class Data {
 
   async getUser(emailAddress, password) {
     const response = await this.api(`/users`, 'GET', null, true, { emailAddress, password });
-    if (response.status === 200) {
+    if (response.status >= 200 || response.status <= 200) {
       return response.json().then(data => data);
     }
     else if (response.status === 401) {
@@ -37,7 +37,7 @@ export default class Data {
   
   async createUser(user) {
     const response = await this.api('/users', 'POST', user);
-    if (response.status === 201) {
+    if (response.status >= 200 || response.status <= 200) {
       return [];
     }
     else if (response.status >= 400 || response.status >= 499) {
@@ -52,7 +52,7 @@ export default class Data {
 
   async getCourse(id) {
     const response = await this.api(`/courses/${id}`, 'GET');
-    if (response.status === 200) {
+    if (response.status >= 200 || response.status <= 200) {
       return response.json().then(data => data);
     }
     else if (response.status === 401) {
@@ -65,8 +65,7 @@ export default class Data {
 
   async createCourse(courseBody, emailAddress, password){
     const response = await this.api('/courses','POST', courseBody, true, {emailAddress, password});
-    debugger
-    if (response.status === 201) {
+    if (response.status >= 200 || response.status <= 299) {
       return [];
     }
     else if (response.status >= 400 || response.status >= 499) {
@@ -78,6 +77,22 @@ export default class Data {
     else {
       throw new Error();
     }
+  }
+
+  async deleteCourse(id, emailAddress, password) {
+      const response = await this.api(`/courses/${id}`,'DELETE', true, {emailAddress, password});
+      if (response.status >= 200 || response.status <= 299) {
+        return [];
+      }
+      else if (response.status >= 400 || response.status >= 499) {
+        return response.json().then(data => {
+          console.log(data.errors)
+          return data.errors;
+        });
+      }
+      else {
+        throw new Error();
+      }
   }
 
   async updateCourses(courseBody, id, emailAddress, password){

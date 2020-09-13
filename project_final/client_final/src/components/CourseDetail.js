@@ -15,37 +15,7 @@ export default class CourseDetail extends React.PureComponent {
     };
     this.courseId = null;
   }
-  deleteThisCourse() {
-    fetch(`http://localhost:5000/api/courses/${this.courseId}`, {
-      method: "DELETE",
-      credentials: "same-origin",
-      redirect: "follow",
-      agent: null,
-      headers: {
-        "Content-Type": "text/plain",
-        Authorization: "Basic " + btoa("gino@coolcats.com:password"),
-      },
-      timeout: 5000,
-    })
-      .then(res => res.json())
-      .then(courses => this.setState({courses}, () => console.log('courses fetched...',courses)))
-  }
 
-  populateThisCourse() {
-    fetch(`http://localhost:5000/api/courses/${this.courseId}`, {
-      method: 'GET',
-      credentials: 'same-origin',
-      redirect: 'follow',
-      agent: null,
-      headers: {
-          "Content-Type": "text/plain",
-          'Authorization': 'Basic ' + btoa('gino@coolcats.com:password'),
-      },
-      timeout: 5000
-    })
-      .then(res => res.json())
-      .then(selectedCourse => this.setState({selectedCourse}, () => console.log('courses fetched...',selectedCourse)))
-  }
 
   componentDidMount() {
     this.courseId = this.props.match.params.id;
