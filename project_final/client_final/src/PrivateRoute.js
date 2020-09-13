@@ -12,7 +12,7 @@ export default ({ component: Component, ...rest }) => {
               <Component {...props} />
             ) : (
               <Redirect to={{
-                pathname: '/signin',
+                pathname: '/Forbidden',
                 state: { from: props.location }
               }} />
             )

@@ -37,13 +37,8 @@ export class Provider extends Component {
     const user = await this.data.getUser(emailAddress, password);
     if (user !== null) {
       this.setState(() => {
-        user.password = password; //stringify password
-        Cookies.set("authenticatedUser", JSON.stringify(user), { expires: 1 });
-        debugger
         return {
-          
-          authenticatedUser: user 
-          
+          authenticatedUser: user,
         };
       });
       const cookieOptions = {

@@ -29,12 +29,14 @@ const AuthWithContext = withContext(Authenticated);
 const UserSignUpWithContext = withContext(UserSignUp);
 const UserSignInWithContext = withContext(UserSignIn);
 const UserSignOutWithContext = withContext(UserSignOut);
+const ForbiddenWithContext = withContext(Forbidden);
 
 export default () => (
     <Router>
       <div>
         <HeaderWithContext />
         <Switch>
+          <Route path="/Forbidden" component={ForbiddenWithContext} />
           <Route exact path="/" component={CoursesWithContext} />
           <PrivateRoute path="/authenticated" component={AuthWithContext} />
           <PrivateRoute path="/courses/create" component={CreateCourseWithContext} />
@@ -46,7 +48,6 @@ export default () => (
           <Route path="/signout" component={UserSignOutWithContext} />
           <Route path="/courses/signout" component={UserSignOut} />
           <Route component={NotFound} />
-          <Route component={Forbidden} />
         </Switch>
       </div>
     </Router>
