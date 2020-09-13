@@ -69,7 +69,7 @@ const CourseDetail = (props) => {
             </div>
             <div className="course--description">
               {description
-                ? description
+                ? <ReactMarkdown source={description} />
                 : "loading"}
             </div>
           </div>
@@ -83,9 +83,7 @@ const CourseDetail = (props) => {
                 <li className="course--stats--list--item">
                   <h4>Materials Needed</h4>
                   <ul>
-                    <li>
-                      <ReactMarkdown source={materialsNeeded} />
-                    </li>
+                    <ReactMarkdown source={materialsNeeded} />
                   </ul>
                 </li>
               </ul>
