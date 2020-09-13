@@ -15,6 +15,7 @@ const CourseDetail = (props) => {
   const [description, setDescription] = useState("");
   const [estimatedTime, setEstimatedTime] = useState("");
   const [materialsNeeded, setMaterialsNeeded] = useState("");
+  const authUser = props.context.authenticatedUser;
 
   const { context } = props;
   const idFromUrl = props.match.params.id
@@ -58,7 +59,7 @@ const CourseDetail = (props) => {
                   ? title
                   : "loading"}
               </h3>
-              <p>By Joe Smith</p>
+                <p>{`by ${authUser.firstName} ${authUser.firstName}`}</p>
             </div>
             <div className="course--description">
               {description

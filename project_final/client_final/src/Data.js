@@ -55,7 +55,7 @@ export default class Data {
     if (response.status >= 200 || response.status <= 200) {
       return response.json().then(data => data);
     }
-    else if (response.status === 401) {
+    else if (response.status >= 400 || response.status >= 499) {
       return null;
     }
     else {
@@ -68,7 +68,7 @@ export default class Data {
     if (response.status >= 200 || response.status <= 299) {
       return response.json().then(data => data);
     }
-    else if (response.status >= 400 || response.status >= 499) {
+    else if (response.status >= 400 || response.status <= 499) {
       return null;
     }
     else {
@@ -78,11 +78,12 @@ export default class Data {
 
   //CREATE
   async createCourse(courseBody, emailAddress, password){
+    debugger
     const response = await this.api('/courses','POST', courseBody, true, {emailAddress, password});
-    if (response.status >= 200 || response.status <= 299) {
+    if (response.status === 200 || response.status === 201) {
       return response.json().then(data => data);
     }
-    else if (response.status >= 400 || response.status >= 499) {
+    else if (response.status === 400) {
       return response.json().then(data => {
         console.log(data.errors)
         return data.errors;
@@ -112,7 +113,7 @@ export default class Data {
   async updateCourses(courseBody, id, emailAddress, password){
     const response = await this.api(`/courses/${id}`,`PUT`, courseBody, true, {emailAddress, password});
     debugger
-    if (response.status >= 200 || response.status <= 299) {
+    if (response.status === 200 || response.status === 201) {
       return [];
     }
     else if (response.status >= 400 || response.status >= 499) {
