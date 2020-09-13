@@ -18,17 +18,21 @@ const UpdateCourses = (props) => {
     const [errors, setError] = useState([]);
     const authUser = props.context.authenticatedUser;
 
+    
+    const idFromUrl = props.match.params.id
+    const { context } = props;
+
     //add the currently selected courses to state
     useEffect(() => {
-      const { context } = props;
-      context.data.getCourse(props.match.params.id)
-      .then(courseToUpdateData => {
-        setTitle(courseToUpdateData.title)
-        setDescription(courseToUpdateData.description)
-        setEstimatedTime(courseToUpdateData.estimatedTime)
-        setMaterialsNeeded(courseToUpdateData.materialsNeeded)
-      })
-    })
+      context.data.getCourse(idFromUrl).then((courseToUpdateData) => {
+        setTitle(courseToUpdateData.title);
+        setDescription(courseToUpdateData.description);
+        setEstimatedTime(courseToUpdateData.estimatedTime);
+        setMaterialsNeeded(courseToUpdateData.materialsNeeded);
+      });
+    }, [idFromUrl,context]);
+    
+
   
     const handleChange = (event) => {
       switch(event.target.name) {
@@ -105,7 +109,7 @@ const UpdateCourses = (props) => {
                         type="text" 
                         onChange={handleChange} 
                         className="input-title course--title--input" 
-                        placeholder={title} />
+                        value={title || ""} />
                     </div>
                     <p>By {authUser.firstName} {authUser.lastName}</p>
                   </div>
@@ -115,7 +119,7 @@ const UpdateCourses = (props) => {
                         id="description" 
                         name="description" 
                         onChange={handleChange} 
-                        placeholder={description}
+                        value={description || ""}
                         className="course--description" />
                     </div> 
                   </div>
@@ -132,7 +136,7 @@ const UpdateCourses = (props) => {
                             type="text"
                             onChange={handleChange} 
                             className="course--time--input"                              
-                            placeholder={estimatedTime} />
+                            value={estimatedTime || ""}  />
                         </div>
                       </li>
                       <li className="course--stats--list--item">
@@ -142,7 +146,7 @@ const UpdateCourses = (props) => {
                             id="materialsNeeded" 
                             name="materialsNeeded"
                             onChange={handleChange} 
-                            placeholder={materialsNeeded}
+                            value={materialsNeeded || ""}
                           ></textarea>
                         </div>
                       </li>
