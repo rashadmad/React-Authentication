@@ -23,7 +23,8 @@ const CourseDetail = (props) => {
 
   //add the currently selected courses to state
   useEffect(() => {
-    context.data.getCourse(idFromUrl).then((selectedCourse) => {
+    context.data.getCourse(idFromUrl)
+    .then((selectedCourse) => {
       setTitle(selectedCourse.title);
       setDescription(selectedCourse.description);
       setEstimatedTime(selectedCourse.estimatedTime);
@@ -34,7 +35,6 @@ const CourseDetail = (props) => {
   const deleteCourseButtonClick = () => {
     const { context } = props;
     const authUser = context.authenticatedUser;
-    debugger
     context.data.deleteCourse(idFromUrl, authUser.emailAddress, authUser.password)
   }
     return (

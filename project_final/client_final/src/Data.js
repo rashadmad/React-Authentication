@@ -28,7 +28,9 @@ export default class Data {
       return response.json().then(data => data);
     }
     else if (response.status === 401) {
-      return null;
+      return response.json().then(data => {
+        return data.errors;
+      });
     }
     else {
       throw new Error();
@@ -95,7 +97,7 @@ export default class Data {
   async deleteCourse(id, emailAddress, password) {
       const response = await this.api(`/courses/${id}`,'DELETE', null, true, {emailAddress, password});
       if (response.status === 204) {
-        this.getCourse()
+        this.getCourses()
         return [];
       }
       else if (response.status === 400) {
