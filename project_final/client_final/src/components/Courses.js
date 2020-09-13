@@ -11,26 +11,17 @@ import NewCourseButton from './NewCourseButton';
     This component also renders a link to the "Create Course" screen.
 */
 
-const Courses = () => {
+const Courses = (props) => {
 
     const [coursesData, setData] = useState([]);
 
+    const { context } = props;
+
     useEffect(() => {
-        fetch('http://localhost:5000/api/courses', {
-            method: 'GET',
-            credentials: 'same-origin',
-            redirect: 'follow',
-            agent: null,
-            headers: {
-                "Content-Type": "text/plain",
-                'Authorization': 'Basic ' + btoa('gino@coolcats.com:password'),
-            },
-            timeout: 5000 
-            })
-            .then(res => res.json())
-            .then(res => setData(res))
-            .catch(error => console.log('Error fetching and parsing data', error))
-    }, [])
+      context.data.getCourses().then((responseData) => {
+        setData(responseData);
+      }).then((data) => {console.log(data)})
+    }, [context])
 
     return (
         <div className="bounds">

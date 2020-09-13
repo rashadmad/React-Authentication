@@ -21,7 +21,7 @@ export default class Data {
     }
     return fetch(url, options);
   }
-
+  //GETUSER
   async getUser(emailAddress, password) {
     const response = await this.api(`/users`, 'GET', null, true, { emailAddress, password });
     if (response.status >= 200 || response.status <= 200) {
@@ -34,7 +34,7 @@ export default class Data {
       throw new Error();
     }
   }
-  
+  //CREATEUSER
   async createUser(user) {
     const response = await this.api('/users', 'POST', user);
     if (response.status >= 200 || response.status <= 200) {
@@ -49,7 +49,7 @@ export default class Data {
       throw new Error();
     }
   }
-
+  //READ
   async getCourse(id) {
     const response = await this.api(`/courses/${id}`, 'GET');
     if (response.status >= 200 || response.status <= 200) {
@@ -62,11 +62,25 @@ export default class Data {
       throw new Error();
     }
   }
+  //READ ALL
+  async getCourses() {
+    const response = await this.api(`/courses`, 'GET');
+    if (response.status >= 200 || response.status <= 299) {
+      return response.json().then(data => data);
+    }
+    else if (response.status >= 400 || response.status >= 499) {
+      return null;
+    }
+    else {
+      throw new Error();
+    }
+  }
 
+  //CREATE
   async createCourse(courseBody, emailAddress, password){
     const response = await this.api('/courses','POST', courseBody, true, {emailAddress, password});
     if (response.status >= 200 || response.status <= 299) {
-      return [];
+      return response.json().then(data => data);
     }
     else if (response.status >= 400 || response.status >= 499) {
       return response.json().then(data => {
@@ -78,7 +92,7 @@ export default class Data {
       throw new Error();
     }
   }
-
+  //DELETE
   async deleteCourse(id, emailAddress, password) {
       const response = await this.api(`/courses/${id}`,'DELETE', true, {emailAddress, password});
       if (response.status >= 200 || response.status <= 299) {
@@ -94,7 +108,7 @@ export default class Data {
         throw new Error();
       }
   }
-
+  //UPDATE
   async updateCourses(courseBody, id, emailAddress, password){
     const response = await this.api(`/courses/${id}`,`PUT`, courseBody, true, {emailAddress, password});
     debugger
