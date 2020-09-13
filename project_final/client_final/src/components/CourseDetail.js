@@ -31,7 +31,12 @@ const CourseDetail = (props) => {
     });
   }, [idFromUrl,context]);
 
-    //const materialsList = this.state.selectedCourse.materialsNeeded;
+  const deleteCourseButtonClick = () => {
+    const { context } = props;
+    const authUser = context.authenticatedUser;
+    debugger
+    context.data.deleteCourse(idFromUrl, authUser.emailAddress, authUser.password)
+  }
     return (
       <div>
         <div className="actions--bar">
@@ -41,7 +46,7 @@ const CourseDetail = (props) => {
                 <NavLink className="button" to={`/courses/${idFromUrl}/update`}>
                   Update Course
                 </NavLink>
-                <NavLink className="button" to="/" onClick={context.data.deleteCourse}>
+                <NavLink className="button" to="/" onClick={deleteCourseButtonClick}>
                   Delete Course
                 </NavLink>
               </span>
@@ -78,7 +83,9 @@ const CourseDetail = (props) => {
                 <li className="course--stats--list--item">
                   <h4>Materials Needed</h4>
                   <ul>
-                      <li>{materialsNeeded}</li>
+                    <li>
+                      <ReactMarkdown source={materialsNeeded} />
+                    </li>
                   </ul>
                 </li>
               </ul>

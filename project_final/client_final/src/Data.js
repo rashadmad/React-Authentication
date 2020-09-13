@@ -37,7 +37,7 @@ export default class Data {
   //CREATEUSER
   async createUser(user) {
     const response = await this.api('/users', 'POST', user);
-    if (response.status >= 200 || response.status <= 200) {
+    if (response.status === 200) {
       return [];
     }
     else if (response.status >= 400 || response.status >= 499) {
@@ -52,7 +52,7 @@ export default class Data {
   //READ
   async getCourse(id) {
     const response = await this.api(`/courses/${id}`, 'GET');
-    if (response.status >= 200 || response.status <= 200) {
+    if (response.status === 200) {
       return response.json().then(data => data);
     }
     else if (response.status >= 400 || response.status >= 499) {
@@ -65,7 +65,7 @@ export default class Data {
   //READ ALL
   async getCourses() {
     const response = await this.api(`/courses`, 'GET');
-    if (response.status >= 200 || response.status <= 299) {
+    if (response.status === 200) {
       return response.json().then(data => data);
     }
     else if (response.status >= 400 || response.status <= 499) {
@@ -80,7 +80,7 @@ export default class Data {
   async createCourse(courseBody, emailAddress, password){
     debugger
     const response = await this.api('/courses','POST', courseBody, true, {emailAddress, password});
-    if (response.status === 200 || response.status === 201) {
+    if (response.status === 201) {
       return response.json().then(data => data);
     }
     else if (response.status === 400) {
@@ -95,11 +95,11 @@ export default class Data {
   }
   //DELETE
   async deleteCourse(id, emailAddress, password) {
-      const response = await this.api(`/courses/${id}`,'DELETE', true, {emailAddress, password});
-      if (response.status >= 200 || response.status <= 299) {
+      const response = await this.api(`/courses/${id}`,'DELETE', null, true, {emailAddress, password});
+      if (response.status === 204) {
         return [];
       }
-      else if (response.status >= 400 || response.status >= 499) {
+      else if (response.status === 400) {
         return response.json().then(data => {
           console.log(data.errors)
           return data.errors;
