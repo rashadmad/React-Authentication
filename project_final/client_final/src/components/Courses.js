@@ -20,12 +20,11 @@ const Courses = (props) => {
        context.data.getCourses()
         .then((responseData) => {
         setData(responseData);
-      }).then((data) => {console.log(data)})
-      //this anonymous function works similar to componentWillUnmount empties setdata array
-      return () => {
-        const controller = new AbortController();
-        controller.abort();
-      }
+      })
+      // //this anonymous function works similar to componentWillUnmount empties setdata array
+      // return () => {
+      //   setData([])
+      // }
     }, [coursesData, context])
 
     return (
