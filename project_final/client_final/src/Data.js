@@ -37,7 +37,7 @@ export default class Data {
   //CREATEUSER
   async createUser(user) {
     const response = await this.api('/users', 'POST', user);
-    if (response.status === 200) {
+    if (response.status === 201) {
       return [];
     }
     else if (response.status === 400) {
@@ -82,6 +82,7 @@ export default class Data {
       return []
     }
     else if (response.status === 401) {
+      debugger
       return response.json().then(data => {
         console.log(data.errors)
         return data.errors;
