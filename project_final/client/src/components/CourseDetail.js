@@ -33,23 +33,29 @@ const CourseDetail = (props) => {
   }, [idFromUrl,context]);
 
   const deleteCourseButtonClick = () => {
-    const { context } = props;
-    const authUser = context.authenticatedUser;
-      context.data.deleteCourse(idFromUrl, authUser.emailAddress, authUser.password)
-    .then( errors => {
-      debugger
-      if (errors.length) {
-        console.log(errors);
+        const { context } = props;
+        if(context.authenticatedUser){
+          const authUser = context.authenticatedUser;
+        
+          context.data.deleteCourse(idFromUrl, authUser.emailAddress, authUser.password)
+        .then( errors => {
+          debugger
+          if (errors.length) {
+            console.log(errors);
+          } else {
+            props.history.push('/');    
+          }
+        })
+        .catch((err) => {
+          debugger
+          props.history.push('/error');
+          console.log(err);
+        });
       } else {
-        props.history.push('/');    
+        props.history.push('/Forbidden');
       }
-    })
-    .catch((err) => {
-      debugger
-      props.history.push('/error');
-      console.log(err);
-    });
-  }
+    }
+    
     return (
       <div>
         <div className="actions--bar">
