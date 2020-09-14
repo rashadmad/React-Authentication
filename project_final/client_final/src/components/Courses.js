@@ -25,7 +25,7 @@ const Courses = (props) => {
       // return () => {
       //   setData([])
       // }
-    }, [coursesData, context])
+    }, [context])
 
     return (
         <div className="bounds">

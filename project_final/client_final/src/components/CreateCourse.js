@@ -59,6 +59,7 @@ const CreateCourse = (props) => {
       }
     })
     .catch((err) => {
+      debugger
       props.history.push('/error');
       console.log(err);
     });

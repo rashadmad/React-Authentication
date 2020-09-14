@@ -35,7 +35,20 @@ const CourseDetail = (props) => {
   const deleteCourseButtonClick = () => {
     const { context } = props;
     const authUser = context.authenticatedUser;
-    context.data.deleteCourse(idFromUrl, authUser.emailAddress, authUser.password)
+      context.data.deleteCourse(idFromUrl, authUser.emailAddress, authUser.password)
+    .then( errors => {
+      debugger
+      if (errors.length) {
+        console.log(errors);
+      } else {
+        props.history.push('/');    
+      }
+    })
+    .catch((err) => {
+      debugger
+      props.history.push('/error');
+      console.log(err);
+    });
   }
     return (
       <div>
@@ -46,9 +59,9 @@ const CourseDetail = (props) => {
                 <NavLink className="button" to={`/courses/${idFromUrl}/update`}>
                   Update Course
                 </NavLink>
-                <NavLink className="button" to="/" onClick={deleteCourseButtonClick}>
+                <button className="button" href="#" onClick={deleteCourseButtonClick}>
                   Delete Course
-                </NavLink>
+                </button>
               </span>
               <NavLink className="button button-secondary" to="/">
                 Return to List
