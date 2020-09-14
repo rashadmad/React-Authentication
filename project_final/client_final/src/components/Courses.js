@@ -14,13 +14,17 @@ import NewCourseButton from './NewCourseButton';
 const Courses = (props) => {
 
     const [coursesData, setData] = useState([]);
-
     const { context } = props;
 
     useEffect(() => {
-      context.data.getCourses().then((responseData) => {
+       context.data.getCourses()
+        .then((responseData) => {
         setData(responseData);
       }).then((data) => {console.log(data)})
+      //this anonymous function works similar to 
+      return () => {
+        setData([])
+      }
     }, [context])
 
     return (
