@@ -21,11 +21,12 @@ const Courses = (props) => {
         .then((responseData) => {
         setData(responseData);
       }).then((data) => {console.log(data)})
-      //this anonymous function works similar to 
+      //this anonymous function works similar to componentWillUnmount empties setdata array
       return () => {
-        setData([])
+        const controller = new AbortController();
+        controller.abort();
       }
-    }, [context])
+    }, [coursesData, context])
 
     return (
         <div className="bounds">
