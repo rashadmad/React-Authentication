@@ -21,6 +21,7 @@ const CourseDetail = (props) => {
 
   const { context } = props;
   const idFromUrl = props.match.params.id
+  const AuthorMatchesCurrentUser = (author === authUser)
 
   //add the currently selected courses to state
   useEffect(() => {
@@ -60,17 +61,21 @@ const CourseDetail = (props) => {
         <div className="actions--bar">
           <div className="bounds">
             <div className="grid-100">
+              {AuthorMatchesCurrentUser ? (
+              <React.Fragment>
               <span>
-                <NavLink className="button" to={`/courses/${idFromUrl}/update`}>
-                  Update Course
-                </NavLink>
-                <button className="button" href="#" onClick={deleteCourseButtonClick}>
-                  Delete Course
-                </button>
+                <NavLink className="button" to={`/courses/${idFromUrl}/update`}>Update Course</NavLink>
+                <button className="button" href="#" onClick={deleteCourseButtonClick}>Delete Course</button>
+                <NavLink className="button button-secondary" to="/">Return to List</NavLink>
               </span>
-              <NavLink className="button button-secondary" to="/">
-                Return to List
-              </NavLink>
+              </React.Fragment>
+            ) : (
+              <React.Fragment>
+                <span>
+                <NavLink className="button button-secondary" to="/">Return to List</NavLink>
+                </span>
+              </React.Fragment>
+            )}
             </div>
           </div>
         </div>
