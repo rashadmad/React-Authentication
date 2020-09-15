@@ -17,11 +17,12 @@ const CourseDetail = (props) => {
   const [estimatedTime, setEstimatedTime] = useState("");
   const [materialsNeeded, setMaterialsNeeded] = useState("");
   const [author, setAuthor] = useState("");
+  const [authorMatchesCurrentUser, checkForMatch] = useState(false);
+  
   const authUser = props.context.authenticatedUser;
-
   const { context } = props;
   const idFromUrl = props.match.params.id
-  const AuthorMatchesCurrentUser = (author.emailAddress === authUser.emailAddress)
+  const isUserSignedIn = authUser;
 
   //add the currently selected courses to state
   useEffect(() => {
@@ -35,10 +36,16 @@ const CourseDetail = (props) => {
     });
   }, [idFromUrl,context]);
 
+  useEffect(() => {
+    //check to see if user is signed in if so then check if the user matched the author
+    (isUserSignedIn) ? checkForMatch(author.emailAddress === authUser.emailAddress) : checkForMatch(false)
+  })
+  
+  //triggers on delete button click
   const deleteCourseButtonClick = () => {
         const { context } = props;
         
-        if(context.authenticatedUser){
+        if(isUserSignedIn){
           const authUser = context.authenticatedUser;
           context.data.deleteCourse(idFromUrl, authUser.emailAddress, authUser.password)
         .then( errors => {
@@ -61,7 +68,7 @@ const CourseDetail = (props) => {
         <div className="actions--bar">
           <div className="bounds">
             <div className="grid-100">
-              {AuthorMatchesCurrentUser ? (
+              {authorMatchesCurrentUser ? (
               <React.Fragment>
               <span>
                 <NavLink className="button" to={`/courses/${idFromUrl}/update`}>Update Course</NavLink>
@@ -88,9 +95,7 @@ const CourseDetail = (props) => {
                   ? title
                   : "loading"}
               </h3>
-              {authUser
-                  ? <p>{`by ${author.firstName} ${author.lastName}`}</p>
-                  : <p>Login to find out who created this course</p>}
+              <p>{`by ${author.firstName} ${author.lastName}`}</p>
             </div>
             <div className="course--description">
               {description
