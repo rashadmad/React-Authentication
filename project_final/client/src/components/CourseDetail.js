@@ -21,7 +21,7 @@ const CourseDetail = (props) => {
 
   const { context } = props;
   const idFromUrl = props.match.params.id
-  const AuthorMatchesCurrentUser = (author === authUser)
+  const AuthorMatchesCurrentUser = (author.emailAddress === authUser.emailAddress)
 
   //add the currently selected courses to state
   useEffect(() => {
@@ -37,7 +37,7 @@ const CourseDetail = (props) => {
 
   const deleteCourseButtonClick = () => {
         const { context } = props;
-        debugger
+        
         if(context.authenticatedUser){
           const authUser = context.authenticatedUser;
           context.data.deleteCourse(idFromUrl, authUser.emailAddress, authUser.password)
