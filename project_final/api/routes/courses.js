@@ -21,7 +21,6 @@ router.get('/api/courses/:id', middleware.asyncHandler(async(req, res) => {
         }, 
         include: Users
     });
-    console.log(specificCourse.User.dataValues.firstName)
     res.send(specificCourse);
     res.status(200).end();
 }));

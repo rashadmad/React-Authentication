@@ -16,6 +16,7 @@ const UpdateCourses = (props) => {
     const [estimatedTime, setEstimatedTime] = useState("");
     const [materialsNeeded, setMaterialsNeeded] = useState("");
     const [errors, setError] = useState([]);
+    const [author, setAuthor] = useState("");
     const authUser = props.context.authenticatedUser;
 
     
@@ -24,11 +25,13 @@ const UpdateCourses = (props) => {
 
     //add the currently selected courses to state
     useEffect(() => {
-      context.data.getCourse(idFromUrl).then((courseToUpdateData) => {
+      context.data.getCourse(idFromUrl)
+      .then((courseToUpdateData) => {
         setTitle(courseToUpdateData.title);
         setDescription(courseToUpdateData.description);
         setEstimatedTime(courseToUpdateData.estimatedTime);
         setMaterialsNeeded(courseToUpdateData.materialsNeeded);
+        setAuthor(courseToUpdateData.User);
       });
     }, [idFromUrl,context]);
     
@@ -111,7 +114,7 @@ const UpdateCourses = (props) => {
                         className="input-title course--title--input" 
                         value={title || ""} />
                     </div>
-                    <p>By {authUser.firstName} {authUser.lastName}</p>
+                    <p>By {author.firstName} {author.lastName}</p>
                   </div>
                   <div className="course--description">
                     <div>
