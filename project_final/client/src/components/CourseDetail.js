@@ -37,9 +37,13 @@ const CourseDetail = (props) => {
   }, [idFromUrl,context]);
 
   useEffect(() => {
-    //check to see if user is signed in if so then check if the user matched the author
-    (isUserSignedIn) ? checkForMatch(author.emailAddress === authUser.emailAddress) : checkForMatch(false)
-  })
+
+    if(isUserSignedIn){
+      checkForMatch(author.emailAddress === authUser.emailAddress)
+    }
+
+  }, [isUserSignedIn, authorMatchesCurrentUser, authUser, author])
+
   
   //triggers on delete button click
   const deleteCourseButtonClick = () => {
@@ -63,6 +67,7 @@ const CourseDetail = (props) => {
         props.history.push('/Forbidden');
       }
     }
+    
     return (
       <div>
         <div className="actions--bar">
