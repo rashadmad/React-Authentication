@@ -5,18 +5,25 @@ const { check, validationResult } = require('express-validator/check');
 
 // import models 
 const Courses = require('../models').Courses;
+const Users = require('../models').Users;
 
 // GET /api/courses 200 - Returns a list of courses (including the user that owns each course)
 router.get('/api/courses', middleware.asyncHandler(async(req, res) => {
-    const arrayOfCourses = await Courses.findAll()
+    const arrayOfCourses = await Courses.findAll({})
     res.send(arrayOfCourses)
     res.status(200).end(); 
 }));
 // GET /api/courses/:id 200 - Returns a course (including the user that owns the course) for the provided course ID
 router.get('/api/courses/:id', middleware.asyncHandler(async(req, res) => {
-    const arrayOfCourses = await Courses.findByPk(req.params.id)
-    res.send(arrayOfCourses)
-    res.status(200).end(); 
+    const specificCourse = await Courses.findOne({
+        where: {
+            id: req.params.id
+        }, 
+        include: Users
+    });
+    console.log(specificCourse.User.dataValues.firstName)
+    res.send(specificCourse);
+    res.status(200).end();
 }));
 // POST /api/courses 201 - Creates a course, sets the Location header to the URI for the course, and returns no content
 router.post('/api/courses', [

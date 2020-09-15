@@ -16,6 +16,7 @@ const CourseDetail = (props) => {
   const [description, setDescription] = useState("");
   const [estimatedTime, setEstimatedTime] = useState("");
   const [materialsNeeded, setMaterialsNeeded] = useState("");
+  const [author, setAuthor] = useState("");
   const authUser = props.context.authenticatedUser;
 
   const { context } = props;
@@ -29,17 +30,17 @@ const CourseDetail = (props) => {
       setDescription(selectedCourse.description);
       setEstimatedTime(selectedCourse.estimatedTime);
       setMaterialsNeeded(selectedCourse.materialsNeeded);
+      setAuthor(selectedCourse.User);
     });
   }, [idFromUrl,context]);
 
   const deleteCourseButtonClick = () => {
         const { context } = props;
+        debugger
         if(context.authenticatedUser){
           const authUser = context.authenticatedUser;
-        
           context.data.deleteCourse(idFromUrl, authUser.emailAddress, authUser.password)
         .then( errors => {
-          debugger
           if (errors.length) {
             console.log(errors);
           } else {
@@ -47,7 +48,6 @@ const CourseDetail = (props) => {
           }
         })
         .catch((err) => {
-          debugger
           props.history.push('/error');
           console.log(err);
         });
@@ -55,7 +55,6 @@ const CourseDetail = (props) => {
         props.history.push('/Forbidden');
       }
     }
-    
     return (
       <div>
         <div className="actions--bar">
@@ -85,7 +84,7 @@ const CourseDetail = (props) => {
                   : "loading"}
               </h3>
               {authUser
-                  ? <p>{`by ${authUser.firstName} ${authUser.lastName}`}</p>
+                  ? <p>{`by ${author.firstName} ${author.lastName}`}</p>
                   : <p>Login to find out who created this course</p>}
             </div>
             <div className="course--description">
